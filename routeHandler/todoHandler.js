@@ -104,4 +104,19 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+// DELETE TODO using deleteMany
+// router.delete('/:id', async (req, res) => {
+//     try {
+//         const result = await Todo.deleteMany({ status: 'inactive' });
+//         res.status(200).json({
+//             message: 'Todo was deleted successfully!',
+//         });
+//         console.log(result);
+//     } catch (err) {
+//         res.status(500).json({
+//             error: 'There was a error in the server side!',
+//         });
+//     }
+// });
+
 module.exports = router;
