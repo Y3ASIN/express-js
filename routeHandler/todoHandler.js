@@ -23,6 +23,37 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET Active TODO
+router.get('/active', async (req, res) => {
+    const todo = new Todo();
+    const data = await todo.findActive();
+    res.status(200).json({
+        data,
+    });
+});
+
+// GET Static TODO
+router.get('/js', async (req, res) => {
+    try {
+        const data = await Todo.findByJS();
+        res.status(200).json({
+            data,
+        });
+    } catch (err) {
+        res.status(500).json({
+            error: err,
+        });
+    }
+});
+
+// GET Using Query Helper
+router.get('/language', async (req, res) => {
+    const data = await Todo.find().byLanguage('js');
+    res.status(200).json({
+        data,
+    });
+});
+
 // GET a TODO
 router.get('/:id', async (req, res) => {
     try {
