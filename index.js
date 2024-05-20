@@ -1,10 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const todoHandler = require('./routeHandler/todoHandler');
+const userHandler = require('./routeHandler/userHandler');
 
 // express app initialization
 const app = express();
+dotenv.config();
 app.use(express.json());
 
 // database connection
@@ -21,6 +24,7 @@ mongoose
 
 // application route
 app.use('/todo', todoHandler);
+app.use('/user', userHandler);
 
 // default error handling
 function errorHandler(err, req, res, next) {

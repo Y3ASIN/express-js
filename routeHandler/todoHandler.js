@@ -5,11 +5,14 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 const todoSchema = require('../schemas/todoSchema');
+const checkLogin = require('../middlewares/checkLogin');
 
 const Todo = new mongoose.model('Todo', todoSchema);
 
 // GET all the TODO
-router.get('/', async (req, res) => {
+router.get('/', checkLogin, async (req, res) => {
+    console.log(req.username);
+    console.log(req.userId);
     try {
         const result = await Todo.find({ status: 'active' }).select({ _id: 0, __v: 0, date: 0 });
         res.status(200).json({
@@ -55,7 +58,7 @@ router.get('/language', async (req, res) => {
 });
 
 // GET a TODO
-router.get('/:id', async (req, res) => {
+router.get('/:id', checkLogin, async (req, res) => {
     try {
         const result = await Todo.find({ _id: req.params.id }).select({ _id: 0, __v: 0, date: 0 });
         res.status(200).json({
